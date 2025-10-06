@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import EmployeeList from '../components/EmployeeList';
 import EmployeeForm from '../components/EmployeeForm';
 import EditModal from '../components/EditModal';
@@ -12,7 +15,7 @@ function EmployeePage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState('asc');
-  
+
   const [editingEmployee, setEditingEmployee] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
@@ -20,7 +23,8 @@ function EmployeePage() {
   const loadEmployees = () => {
     fetch(apiBase)
       .then(res => res.json())
-      .then(data => setEmployees(data));
+      .then(data => setEmployees(data))
+      .catch(() => toast.error("Failed to load employees"));
   };
 
   useEffect(() => {
@@ -56,15 +60,19 @@ function EmployeePage() {
     }
   };
 
-  // Add employee
-  const handleAdd = (employee) => {
-    fetch(apiBase, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(employee)
-    })
-      .then(res => res.json())
-      .then(() => loadEmployees());
+  // Add employee handler with notification
+  const handleAdd = async (employee) => {
+    try {
+      await fetch(apiBase, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(employee),
+      });
+      toast.success("Employee added");
+      loadEmployees();
+    } catch {
+      toast.error("Failed to add employee");
+    }
   };
 
   // Edit employee (open modal)
@@ -73,30 +81,39 @@ function EmployeePage() {
     setEditModalOpen(true);
   };
 
-  // Update employee (apply changes)
-  const handleUpdate = (updatedData) => {
-    fetch(`${apiBase}/${editingEmployee.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedData)
-    })
-      .then(res => res.json())
-      .then(() => {
-        setEditModalOpen(false);
-        setEditingEmployee(null);
-        loadEmployees();
+  // Update employee handler with notification
+  const handleUpdate = async (updatedData) => {
+    try {
+      await fetch(`${apiBase}/${editingEmployee.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData),
       });
+      toast.success("Employee updated");
+      setEditModalOpen(false);
+      setEditingEmployee(null);
+      loadEmployees();
+    } catch {
+      toast.error("Failed to update employee");
+    }
   };
 
-  // Delete employee
-  const handleDelete = (id) => {
-    fetch(`${apiBase}/${id}`, { method: 'DELETE' })
-      .then(() => loadEmployees());
+  // Delete employee handler with notification
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`${apiBase}/${id}`, { method: 'DELETE' });
+      toast.success("Employee deleted");
+      loadEmployees();
+    } catch {
+      toast.error("Failed to delete employee");
+    }
   };
 
   return (
     <div className="max-w-3xl mx-auto py-10">
+      <ToastContainer position="bottom-right" autoClose={3000} />
       <h1 className="text-3xl font-bold mb-8">Employee Management</h1>
+      
       <input
         type="text"
         placeholder="Search by name or position"
