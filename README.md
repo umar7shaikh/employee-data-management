@@ -56,27 +56,28 @@ Employee Data Management is a full-stack web application for managing employee i
 
 ## File Structure
 
-/backend
-├─ server.js # Express server setup
-├─ employeeRoutes.js # API routes for employee CRUD operations
-├─ employeeController.js # Controller logic for handling requests
-├─ employeeModel.js # Database model/schema for employees
-├─ database.js # Database connection setup
-├─ errorHandler.js # Middleware for error handling
-├─ employees.test.js # Backend API tests
-/frontend
-├─ main.jsx # React entry point
-├─ App.jsx # Root app component
-├─ EmployeePage.jsx # Main page to display employee info
-├─ EmployeeList.jsx # Component for listing employees
-├─ EmployeeForm.jsx # Component for employee form
-├─ EditModal.jsx # Modal for editing employee data
-├─ index.css # Global styles
-├─ start.js # (if applicable)
-.gitignore # Git ignore rules
-README.md # Project documentation (this file)
+| Folder/File Name            | Description                                  | Location                         |
+|------------------------------|----------------------------------------------|----------------------------------|
+| **/backend**                 | Backend server files                         | Root directory                   |
+| server.js                    | Sets up the Express server                   | /backend                         |
+| employeeRoutes.js            | API routes for employee CRUD operations      | /backend                         |
+| employeeController.js        | Controller logic for employees               | /backend                         |
+| employeeModel.js             | Employee data schema                         | /backend                         |
+| database.js                  | Database connection setup                    | /backend                         |
+| errorHandler.js              | Error handling middleware                    | /backend                         |
+| employees.test.js            | Backend API test cases                        | /backend                         |
+| **/frontend**                | Frontend React app files                     | Root directory                   |
+| main.jsx                     | React app entry point                        | /frontend                        |
+| App.jsx                      | Root component                               | /frontend                        |
+| EmployeePage.jsx             | Main employee display page                   | /frontend                        |
+| EmployeeList.jsx             | List component for employees                 | /frontend                        |
+| EmployeeForm.jsx             | Form to add/edit employee                    | /frontend                        |
+| EditModal.jsx                | Modal for editing employee data              | /frontend                        |
+| index.css                    | Global styles                                | /frontend                        |
+| start.js                     | (Optional start script)                      | /frontend                        |
 
-text
+
+
 
 ## Usage
 
