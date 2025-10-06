@@ -1,4 +1,5 @@
 import React from "react";
+
 const EmployeeList = ({
   employees,
   onEdit,
@@ -15,19 +16,19 @@ const EmployeeList = ({
       <thead>
         <tr>
           <th
-            className="border px-4 py-2 cursor-pointer"
+            className="border px-4 py-2 cursor-pointer hover:bg-gray-100 transition"
             onClick={() => onSort("name")}
           >
             Name{renderSortArrow("name")}
           </th>
           <th
-            className="border px-4 py-2 cursor-pointer"
+            className="border px-4 py-2 cursor-pointer hover:bg-gray-100 transition"
             onClick={() => onSort("email")}
           >
             Email{renderSortArrow("email")}
           </th>
           <th
-            className="border px-4 py-2 cursor-pointer"
+            className="border px-4 py-2 cursor-pointer hover:bg-gray-100 transition"
             onClick={() => onSort("position")}
           >
             Position{renderSortArrow("position")}
@@ -41,15 +42,15 @@ const EmployeeList = ({
             <td className="border px-4 py-2">{emp.name}</td>
             <td className="border px-4 py-2">{emp.email}</td>
             <td className="border px-4 py-2">{emp.position}</td>
-            <td className="border px-4 py-2">
+            <td className="border px-4 py-2 flex space-x-2">
               <button
-                className="bg-blue-500 text-white px-2 py-1 mr-2 rounded"
+                className="bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 text-white px-4 py-2 rounded transition font-medium"
                 onClick={() => onEdit(emp)}
               >
                 Edit
               </button>
               <button
-                className="bg-red-500 text-white px-2 py-1 rounded"
+                className="bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 text-white px-4 py-2 rounded transition font-medium"
                 onClick={() => onDelete(emp.id)}
               >
                 Delete
@@ -71,4 +72,5 @@ const EmployeeList = ({
     </table>
   );
 };
+
 export default EmployeeList;
